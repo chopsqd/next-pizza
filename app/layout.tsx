@@ -1,5 +1,6 @@
 import React from "react";
 import { Nunito } from "next/font/google";
+import { Header } from "@/components/shared";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -10,13 +11,16 @@ const nunito = Nunito({
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html className={nunito.variable} lang="en">
+    <html lang="en">
       <head>
         <link data-rh="true" rel="icon" href="/logo.png" />
         <title>Next Pizza</title>
       </head>
-      <body>
-        {children}
+      <body className={nunito.variable}>
+        <main className={"min-h-screen"}>
+          <Header/>
+          {children}
+        </main>
       </body>
     </html>
   );
