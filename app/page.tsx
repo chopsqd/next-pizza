@@ -49,7 +49,7 @@ export default function Home() {
               />
 
               <ProductsGroupList
-                title={"Пиццы"}
+                title={"Комбо"}
                 categoryId={2}
                 products={[
                   {
