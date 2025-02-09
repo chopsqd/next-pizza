@@ -1,10 +1,10 @@
+import React from "react";
 import { cn } from "@/lib/utils";
-import { Container } from "@/components/shared";
+import { Container, SearchInput } from "@/components/shared";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui";
 import { ArrowRight, ShoppingCart, User } from "lucide-react";
-import React from "react";
 
 interface IHeaderProps {
   className?: string;
@@ -23,6 +23,10 @@ export const Header: React.FC<IHeaderProps> = ({ className }) => {
             </div>
           </div>
         </Link>
+
+        <div className={"mx-10 flex-1"}>
+          <SearchInput/>
+        </div>
 
         <div className={"flex items-center gap-3"}>
           <Button variant={"outline"} className={"flex items-center gap-1"}>
