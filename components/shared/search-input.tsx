@@ -18,20 +18,26 @@ export const SearchInput: React.FC<ISearchInputProps> = ({ className }) => {
   const [products, setProducts] = React.useState<Product[]>([]);
   const ref = React.useRef(null);
 
-  useClickAway(ref, () => {
-    setFocused(false);
-  });
-
-  useDebounce(() => {
-    Api.products.search(searchQuery)
-      .then(items => setProducts(items));
-  }, 500, [searchQuery]);
-
   const onClickItem = () => {
     setFocused(false);
     setSearchQuery("");
     setProducts([]);
   };
+
+  const fetchProducts = async () => {
+    try {
+      const response = await Api.products.search(searchQuery)
+      setProducts(response)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useClickAway(ref, () => {
+    setFocused(false);
+  });
+
+  useDebounce(fetchProducts, 500, [searchQuery]);
 
   return (
     <>
