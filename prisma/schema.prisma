@@ -70,7 +70,7 @@ model ProductVariant {
   updatedAt DateTime @updatedAt
 }
 
-model Ingredient {
+model IngredientCard {
   id Int @id @default(autoincrement())
 
   name     String

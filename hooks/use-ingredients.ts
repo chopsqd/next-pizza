@@ -1,5 +1,5 @@
 import React from "react";
-import { Ingredient } from "@prisma/client";
+import type { Ingredient } from "@prisma/client";
 import { Api } from "@/services/api-client";
 
 export const useIngredients = () => {

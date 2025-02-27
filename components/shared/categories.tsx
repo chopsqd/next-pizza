@@ -4,7 +4,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useCategoryStore } from "@/store";
-import { Category } from "@prisma/client";
+import type { Category } from "@prisma/client";
 
 interface ICategoriesProps {
   className?: string;

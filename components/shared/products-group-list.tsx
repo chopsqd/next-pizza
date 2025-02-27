@@ -5,11 +5,11 @@ import { useIntersection } from "react-use";
 import { cn } from "@/lib/utils";
 import { ProductCard, Title } from "@/components/shared";
 import { useCategoryStore } from "@/store";
-import { Product } from "@prisma/client";
+import { ProductWithRelations } from "@/types/prisma";
 
 interface IProductsGroupListProps {
   title: string;
-  products: Product[];
+  products: ProductWithRelations[];
   className?: string;
   listClassName?: string;
   categoryId: number;

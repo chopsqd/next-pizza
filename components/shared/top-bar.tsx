@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { Categories, Container, SortPopup } from "@/components/shared";
-import { Category } from "@prisma/client";
+import type { Category } from "@prisma/client";
 
 interface ITopBarProps {
   className?: string;
