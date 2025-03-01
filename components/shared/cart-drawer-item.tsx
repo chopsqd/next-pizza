@@ -9,6 +9,7 @@ interface ICartDrawerItemProps {
   name: string;
   price: number;
   quantity: number;
+  disabled?: boolean
   onClickCountButton: (type: "plus" | "minus") => void
   onClickRemoveButton: () => void
   className?: string;
@@ -20,12 +21,13 @@ export const CartDrawerItem: React.FC<ICartDrawerItemProps> = ({
   price,
   details,
   quantity,
+  disabled,
   onClickCountButton,
   onClickRemoveButton,
   className
 }) => {
   return (
-    <div className={cn("flex bg-white p-5 gap-6", className)}>
+    <div className={cn("flex bg-white p-5 gap-6", { 'opacity-50 pointer-events-none': disabled }, className)}>
       <CartItem.Image src={imageUrl} />
 
       <div className={"flex-1"}>

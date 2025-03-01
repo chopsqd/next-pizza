@@ -10,6 +10,7 @@ interface ICartStateItem {
   name: string;
   imageUrl: string;
   price: number;
+  disabled: boolean;
   pizzaSize: PizzaSize | null;
   pizzaType: PizzaType | null;
   ingredients: Array<{ name: string; price: number }>;
@@ -41,8 +42,9 @@ const getCartDetails = (data: CartDTO) => {
     price: calcCartItemTotalAmount(item),
     pizzaSize: item.productVariant.size,
     pizzaType: item.productVariant.pizzaType,
+    disabled: false,
     ingredients: item.ingredients.map(({ name, price }) => ({ name, price }))
-  }));
+  })) as ICartStateItem[];
 
   return { items, totalAmount: data.totalAmount || 0 };
 };
@@ -93,14 +95,23 @@ export const useCartStore = create<ICartState>((set, get) => ({
   },
   removeCartItem: async (id: number) => {
     try {
-      set({ loading: true, error: false });
+      set(state => ({
+        loading: true,
+        error: false,
+        items: state.items.map((item) =>
+          item.id === id ? { ...item, disabled: true } : item
+        )
+      }));
       const data = await Api.cart.removeCartItem(id);
       set(getCartDetails(data));
     } catch (error) {
       set({ error: true });
       console.error(error);
     } finally {
-      set({ loading: false });
+      set(state => ({
+        loading: false,
+        items: state.items.map((item) => ({...item, disabled: false }))
+      }));
     }
   },
   addCartItem: async (values: CreateCartItemDTO) => {

@@ -19,5 +19,6 @@ export * from './cart-button'
 export * from './cart-item-details'
 export * from './cart-drawer'
 export * from './cart-drawer-item'
+export * from './product-form'
 
 export * from './modals'
