@@ -7,20 +7,22 @@ import { pizzaSizes, pizzaTypes } from "@/constants";
 import { usePizzaOptions } from "@/hooks";
 
 interface IChoosePizzaFormProps {
+  loading: boolean
   imageUrl: string;
   name: string;
   ingredients: Ingredient[];
   variants: ProductVariant[];
-  onClickAddCart: VoidFunction;
+  onSubmit: (id: number, ingredients: number[]) => void;
   className?: string;
 }
 
 export const ChoosePizzaForm: React.FC<IChoosePizzaFormProps> = ({
+ loading,
  name,
  variants,
  imageUrl,
  ingredients,
- onClickAddCart,
+ onSubmit,
  className
 }) => {
   const {
@@ -29,10 +31,17 @@ export const ChoosePizzaForm: React.FC<IChoosePizzaFormProps> = ({
     selectedIngredients, availableSizes,
     totalPrice,
     textDetails,
+    currentVariantId,
     setSize,
     setType,
     toggleIngredient
   } = usePizzaOptions(variants, ingredients);
+
+  const handleAddClick = () => {
+    if (currentVariantId) {
+      onSubmit(currentVariantId, Array.from(selectedIngredients))
+    }
+  }
 
   return (
     <div className={cn(className, "flex flex-1")}>
@@ -72,8 +81,8 @@ export const ChoosePizzaForm: React.FC<IChoosePizzaFormProps> = ({
         </div>
 
         <Button
-          loading={false}
-          onClick={onClickAddCart}
+          loading={loading}
+          onClick={handleAddClick}
           className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
         >
           Добавить в корзину за {totalPrice} ₽

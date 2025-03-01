@@ -1,5 +1,6 @@
 import React from "react";
 import { Nunito } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 
 import "./globals.css";
 
@@ -16,7 +17,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <link data-rh="true" rel="icon" href="/logo.png" />
       <title>Next Pizza</title>
     </head>
-    <body className={nunito.variable}>{children}</body>
+    <body className={nunito.variable}>
+      {children}
+      <Toaster />
+    </body>
     </html>
   );
 }

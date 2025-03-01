@@ -27,6 +27,8 @@ export const usePizzaOptions = (
     disabled: !filteredPizzasByType.some(pizza => pizza.size === value)
   }));
 
+  const currentVariantId = variants.find((item) => item.pizzaType === type && item.size === size)?.id
+
   React.useEffect(() => {
     const isAvailableSize = availableSizes.find(item => item.value === size && !item.disabled);
     const availableSize = availableSizes.find(item => !item.disabled);
@@ -42,6 +44,7 @@ export const usePizzaOptions = (
     selectedIngredients, availableSizes,
     totalPrice,
     textDetails,
+    currentVariantId,
     setSize,
     setType,
     toggleIngredient
