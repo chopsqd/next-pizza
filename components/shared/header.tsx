@@ -1,18 +1,20 @@
 import React from "react";
-import { cn } from "@/lib/utils";
-import { CartButton, Container, SearchInput } from "@/components/shared";
+import { User } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { CartButton, Container, SearchInput } from "@/components/shared";
 import { Button } from "@/components/ui";
-import { ArrowRight, ShoppingCart, User } from "lucide-react";
 
 interface IHeaderProps {
+  hasSearch?: boolean;
+  hasCart?: boolean;
   className?: string;
 }
 
-export const Header: React.FC<IHeaderProps> = ({ className }) => {
+export const Header: React.FC<IHeaderProps> = ({ hasSearch = true, hasCart = true, className }) => {
   return (
-    <header className={cn("border border-b", className)}>
+    <header className={cn("border-b", className)}>
       <Container className={"flex items-center justify-between py-8"}>
         <Link href="/">
           <div className="flex items-center gap-4">
@@ -24,9 +26,11 @@ export const Header: React.FC<IHeaderProps> = ({ className }) => {
           </div>
         </Link>
 
-        <div className={"mx-10 flex-1"}>
-          <SearchInput/>
-        </div>
+        {hasSearch && (
+          <div className={"mx-10 flex-1"}>
+            <SearchInput />
+          </div>
+        )}
 
         <div className={"flex items-center gap-3"}>
           <Button variant={"outline"} className={"flex items-center gap-1"}>
@@ -34,7 +38,7 @@ export const Header: React.FC<IHeaderProps> = ({ className }) => {
             Войти
           </Button>
 
-          <CartButton/>
+          {hasCart && <CartButton />}
         </div>
       </Container>
     </header>

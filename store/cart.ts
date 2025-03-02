@@ -16,14 +16,14 @@ interface ICartStateItem {
   ingredients: Array<{ name: string; price: number }>;
 }
 
-interface ICartState {
+export interface ICartState {
   loading: boolean;
   error: boolean;
   totalAmount: number;
   items: ICartStateItem[];
 
   fetchCartItems: () => Promise<void>;
-  updateItemQuantity: (id: number, quantity: number) => Promise<void>;
+  updateItemQuantity: (id: number, quantity: number, type: "plus" | "minus") => Promise<void>;
   addCartItem: (values: CreateCartItemDTO) => Promise<void>;
   removeCartItem: (id: number) => Promise<void>;
   getCartItemDetails: (item: ICartStateItem) => string;
@@ -81,10 +81,11 @@ export const useCartStore = create<ICartState>((set, get) => ({
       set({ loading: false });
     }
   },
-  updateItemQuantity: async (id: number, quantity: number) => {
+  updateItemQuantity: async (id: number, quantity: number, type: "plus" | "minus") => {
     try {
       set({ loading: true, error: false });
-      const data = await Api.cart.updateItemQuantity(id, quantity);
+      const newQuantity = type === "plus" ? quantity + 1 : quantity - 1;
+      const data = await Api.cart.updateItemQuantity(id, newQuantity);
       set(getCartDetails(data));
     } catch (error) {
       console.error(error);

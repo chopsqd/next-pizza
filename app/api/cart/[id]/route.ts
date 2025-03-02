@@ -9,7 +9,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     const token = req.cookies.get("cartToken")?.value;
 
     if (!token) {
-      return NextResponse.json({ error: "Cart token not found" });
+      return NextResponse.json({ error: "CheckoutCart token not found" });
     }
 
     const cartItem = await prisma.cartItem.findFirst({
@@ -17,7 +17,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     });
 
     if (!cartItem) {
-      return NextResponse.json({ error: "Cart item not found" });
+      return NextResponse.json({ error: "CheckoutCart item not found" });
     }
 
     await prisma.cartItem.update({
@@ -40,7 +40,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     const token = req.cookies.get("cartToken")?.value;
 
     if (!token) {
-      return NextResponse.json({ error: "Cart token not found" });
+      return NextResponse.json({ error: "CheckoutCart token not found" });
     }
 
     const cartItem = await prisma.cartItem.findFirst({
@@ -48,7 +48,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     });
 
     if (!cartItem) {
-      return NextResponse.json({ error: "Cart item not found" });
+      return NextResponse.json({ error: "CheckoutCart item not found" });
     }
 
     await prisma.cartItem.delete({

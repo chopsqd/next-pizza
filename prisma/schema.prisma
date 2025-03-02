@@ -84,7 +84,7 @@ model IngredientCard {
   updatedAt DateTime @updatedAt
 }
 
-model Cart {
+model CheckoutCart {
   id Int @id @default(autoincrement())
 
   user   User? @relation(fields: [userId], references: [id])
@@ -100,7 +100,7 @@ model Cart {
   updatedAt DateTime @updatedAt
 }
 
-model CartItem {
+model CheckoutItem {
   id Int @id @default(autoincrement())
 
   cart   Cart @relation(fields: [cartId], references: [id])

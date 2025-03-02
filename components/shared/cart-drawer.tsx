@@ -16,37 +16,24 @@ import {
   SheetTrigger
 } from "@/components/ui";
 import { CartDrawerItem, Title } from "@/components/shared";
-import { useCartStore } from "@/store";
+import { useCart } from "@/hooks";
 
-
-interface ICartDrawerProps {
-  className?: string;
-}
-
-export const CartDrawer: React.FC<React.PropsWithChildren<ICartDrawerProps>> = ({ children, className }) => {
+export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
   const {
     items,
     totalAmount,
-    fetchCartItems,
+    loading,
     getCartItemDetails,
     updateItemQuantity,
     removeCartItem
-  } = useCartStore();
-
-  const onClickCountButton = (id: number, quantity: number, type: "plus" | "minus") => {
-    const newQuantity = type === "plus" ? quantity + 1 : quantity - 1;
-    updateItemQuantity(id, newQuantity);
-  };
-
-  React.useEffect(() => {
-    fetchCartItems();
-  }, []);
+  } = useCart();
+  const [isRedirecting, setIsRedirecting] = React.useState(false);
 
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent className={cn("flex flex-col justify-between pb-0 bg-[#F4F1EE]", className)}>
-        {totalAmount > 0  ? (
+      <SheetContent className={"flex flex-col justify-between pb-0 bg-[#F4F1EE]"}>
+        {totalAmount > 0 ? (
           <>
             <SheetHeader>
               <SheetTitle>
@@ -67,7 +54,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<ICartDrawerProps>> = (
                     price={item.price}
                     quantity={item.quantity}
                     disabled={item.disabled}
-                    onClickCountButton={type => onClickCountButton(item.id, item.quantity, type)}
+                    onClickCountButton={type => updateItemQuantity(item.id, item.quantity, type)}
                     onClickRemoveButton={() => removeCartItem(item.id)}
                   />
                 </div>
@@ -85,8 +72,10 @@ export const CartDrawer: React.FC<React.PropsWithChildren<ICartDrawerProps>> = (
                   <span className="font-bold text-lg">{totalAmount} ₽</span>
                 </div>
 
-                <Link href="/cart">
+                <Link href="/checkout">
                   <Button
+                    loading={loading || isRedirecting}
+                    onClick={() => setIsRedirecting(true)}
                     type="submit"
                     className="w-full h-12 text-base"
                   >
