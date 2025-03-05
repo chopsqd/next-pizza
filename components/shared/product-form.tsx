@@ -3,7 +3,7 @@
 import React from "react";
 import toast from "react-hot-toast";
 import { useCartStore } from "@/store";
-import type { ProductWithRelations } from "@/types/prisma";
+import type { ProductWithRelations } from "@/types";
 import { ChoosePizzaForm, ChooseProductForm } from "./";
 
 interface IProductFormProps {

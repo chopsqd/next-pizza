@@ -2,10 +2,10 @@
 
 import React from "react";
 import { useIntersection } from "react-use";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import { ProductCard, Title } from "@/components/shared";
 import { useCategoryStore } from "@/store";
-import type { ProductWithRelations } from "@/types/prisma";
+import type { ProductWithRelations } from "@/types";
 
 interface IProductsGroupListProps {
   title: string;

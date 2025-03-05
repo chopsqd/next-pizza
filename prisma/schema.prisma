@@ -70,7 +70,7 @@ model ProductVariant {
   updatedAt DateTime @updatedAt
 }
 
-model IngredientCard {
+model Ingredient {
   id Int @id @default(autoincrement())
 
   name     String
@@ -84,7 +84,7 @@ model IngredientCard {
   updatedAt DateTime @updatedAt
 }
 
-model CheckoutCart {
+model Cart {
   id Int @id @default(autoincrement())
 
   user   User? @relation(fields: [userId], references: [id])
@@ -100,7 +100,7 @@ model CheckoutCart {
   updatedAt DateTime @updatedAt
 }
 
-model CheckoutItem {
+model CartItem {
   id Int @id @default(autoincrement())
 
   cart   Cart @relation(fields: [cartId], references: [id])
@@ -126,7 +126,7 @@ model Order {
   token String
 
   totalAmount Int
-  status      OrderStatus
+  status      OrderStatus @default(PENDING)
   paymentId   String?
 
   items Json

@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import type { Ingredient, ProductVariant } from "@prisma/client";
 import { Button } from "@/components/ui";
 import { GroupVariants, IngredientCard, PizzaImage, Title } from "@/components/shared";

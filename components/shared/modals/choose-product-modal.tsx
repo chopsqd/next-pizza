@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import { useRouter } from "next/navigation";
 import { Dialog, DialogContent } from "@/components/ui";
 import { ProductForm } from "@/components/shared";
-import type { ProductWithRelations } from "@/types/prisma";
+import type { ProductWithRelations } from "@/types";
 
 interface IChooseProductModalProps {
   product: ProductWithRelations;

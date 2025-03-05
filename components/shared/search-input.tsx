@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Search } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import type { Product } from "@prisma/client";
 import { useClickAway, useDebounce } from "react-use";
 import Link from "next/link";

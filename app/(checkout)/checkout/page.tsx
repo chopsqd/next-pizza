@@ -1,16 +1,20 @@
 "use client";
 
-import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
+import React from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCart } from "@/hooks";
 import { CheckoutSidebar, Container, Title } from "@/components/shared";
 import * as Checkout from "@/components/shared/checkout";
 import { checkoutFormSchema, CheckoutFormSchemaType } from "@/schemas";
+import { createOrder } from "@/app/actions";
 
 const VAT = 15;
 const DELIVERY_PRICE = 250;
 
 export default function CheckoutPage() {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const {
     items,
     totalAmount,
@@ -32,12 +36,26 @@ export default function CheckoutPage() {
     }
   });
 
-  const onSubmit: SubmitHandler<CheckoutFormSchemaType> = (data) => {
+  const onSubmit: SubmitHandler<CheckoutFormSchemaType> = async (data) => {
+    try {
+      setIsSubmitting(true);
 
-  }
+      const url = await createOrder(data);
 
-  const vatPrice = (totalAmount * VAT) / 100
-  const totalPrice = totalAmount + DELIVERY_PRICE + vatPrice
+      toast.error("Заказ успешно оформлен! 📝 Переход на оплату...", { icon: "✅" });
+
+      if (url) {
+        location.href = url;
+      }
+    } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
+      toast.error("Не удалось создать заказ", { icon: "❌" });
+    }
+  };
+
+  const vatPrice = (totalAmount * VAT) / 100;
+  const totalPrice = totalAmount + DELIVERY_PRICE + vatPrice;
 
   return (
     <Container className={"mt-10"}>
@@ -64,7 +82,7 @@ export default function CheckoutPage() {
 
           <div className={"w-[450px]"}>
             <CheckoutSidebar
-              loading={loading}
+              loading={loading || isSubmitting}
               totalAmount={totalAmount}
               deliveryPrice={DELIVERY_PRICE}
               totalPrice={totalPrice}

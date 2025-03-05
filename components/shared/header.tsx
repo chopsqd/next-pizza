@@ -2,7 +2,7 @@ import React from "react";
 import { User } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import { CartButton, Container, SearchInput } from "@/components/shared";
 import { Button } from "@/components/ui";
 
