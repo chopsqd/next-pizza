@@ -27,6 +27,7 @@ export * from './providers'
 export * from './auth-button'
 export * from './info-block'
 export * from './profile-form'
+export * from './stories'
 
 export * from './auth'
 export * from './cart-item-details'

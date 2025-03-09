@@ -3,6 +3,7 @@ import { compare, hashSync } from "bcrypt";
 import { UserRole } from "@prisma/client";
 import { prisma } from "@/prisma/prisma-client";
 import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export async function updateCartTotalAmount(token: string) {
@@ -59,9 +60,9 @@ export async function updateCartTotalAmount(token: string) {
 }
 
 export async function getUserSession() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
 
-  return session?.user ?? null
+  return session?.user ?? null;
 }
 
 export const authOptions: NextAuthOptions = {
@@ -70,6 +71,10 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
+    }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID || "",
       clientSecret: process.env.GITHUB_SECRET || "",

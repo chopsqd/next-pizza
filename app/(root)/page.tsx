@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Container, Filters, ProductsGroupList, Title, TopBar } from "@/components/shared";
+import { Container, Filters, ProductsGroupList, Stories, Title, TopBar } from "@/components/shared";
 import { findPizzas, IGetSearchParams } from "@/lib";
 
 export default async function Home({ searchParams }: { searchParams: IGetSearchParams }) {
@@ -13,6 +13,8 @@ export default async function Home({ searchParams }: { searchParams: IGetSearchP
 
       <TopBar categories={categories.filter((category) => category.products.length)} />
 
+      <Stories />
+
       <Container className={"pb-14 mt-10"}>
         <div className={"flex gap-[80px]"}>
           <div className={"w-[250px]"}>
@@ -23,18 +25,16 @@ export default async function Home({ searchParams }: { searchParams: IGetSearchP
 
           <div className={"flex-1"}>
             <div className={"flex flex-col gap-16"}>
-              {
-                categories.map((category) => (
-                  category.products.length && (
-                    <ProductsGroupList
-                      key={category.id}
-                      title={category.name}
-                      categoryId={category.id}
-                      products={category.products}
-                    />
-                  )
-                ))
-              }
+              {categories.map((category) => (
+                category.products.length > 0 && (
+                  <ProductsGroupList
+                    key={category.id}
+                    title={category.name}
+                    categoryId={category.id}
+                    products={category.products}
+                  />
+                )
+              ))}
             </div>
           </div>
         </div>
