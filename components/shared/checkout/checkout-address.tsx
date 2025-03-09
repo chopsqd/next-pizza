@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { FormAddress, FormTextarea, WhiteBlock } from "@/components/shared";

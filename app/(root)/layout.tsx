@@ -10,7 +10,9 @@ export default function HomeLayout({
 }>) {
   return (
     <main className={"min-h-screen"}>
-      <Header />
+      <React.Suspense>
+        <Header />
+      </React.Suspense>
       {children}
       {modal}
     </main>
