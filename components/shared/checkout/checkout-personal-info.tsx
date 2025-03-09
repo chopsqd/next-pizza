@@ -2,7 +2,7 @@ import React from "react";
 import { FormInput, WhiteBlock } from "@/components/shared";
 
 interface ICheckoutPersonalInfoProps {
-  className?: string
+  className?: string;
 }
 
 export const CheckoutPersonalInfo: React.FC<ICheckoutPersonalInfoProps> = ({ className }) => {

@@ -1,14 +1,12 @@
 "use client";
 
 import React from "react";
-import { User } from "lucide-react";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib";
-import { CartButton, Container, SearchInput } from "@/components/shared";
-import { Button } from "@/components/ui";
+import { AuthButton, AuthModal, CartButton, Container, SearchInput } from "@/components/shared";
 
 interface IHeaderProps {
   hasSearch?: boolean;
@@ -19,9 +17,14 @@ interface IHeaderProps {
 export const Header: React.FC<IHeaderProps> = ({ hasSearch = true, hasCart = true, className }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
 
   React.useEffect(() => {
     let toastMessage = "";
+
+    if (searchParams.has('verified')) {
+      toastMessage = 'Почта успешно подтверждена!';
+    }
 
     if (searchParams.has("paid")) {
       toastMessage = "Заказ успешно оплачен! Информация отправлена на почту";
@@ -55,10 +58,9 @@ export const Header: React.FC<IHeaderProps> = ({ hasSearch = true, hasCart = tru
         )}
 
         <div className={"flex items-center gap-3"}>
-          <Button variant={"outline"} className={"flex items-center gap-1"}>
-            <User size={16} />
-            Войти
-          </Button>
+          <AuthModal open={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)}/>
+
+          <AuthButton onClickAuth={() => setIsAuthModalOpen(true)}/>
 
           {hasCart && <CartButton />}
         </div>
